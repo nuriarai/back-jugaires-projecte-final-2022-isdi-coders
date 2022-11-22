@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import type { NextFunction, Request, Response } from "express";
 import User from "../../../database/models/User.js";
 import CustomError from "../../../CustomError/CustomError.js";
-import { userRegister } from "./usersControllers.js";
+import { userRegister } from "./userControllers.js";
 
 beforeEach(() => {
   jest.clearAllMocks();

@@ -34,7 +34,7 @@ export const generalError = (
     debug(chalk.red(validationErrors.join("\n")));
 
     error.publicMessage =
-      "Atention! Provided details doesn't meet requirements: " +
+      "Attention! Provided details doesn't meet the requirements: " +
       validationErrors.join(", ");
 
     error.statusCode = 400;

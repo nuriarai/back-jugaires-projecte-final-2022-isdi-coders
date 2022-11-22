@@ -50,7 +50,7 @@ describe("Given a POST register endpoint", () => {
     test("Then it should respons with a 400 error and message 'Atention! Provided details...'", async () => {
       const statusExpected = 400;
       // eslint-disable-next-line no-useless-escape
-      const messageExpected = `Atention! Provided details doesn't meet the requirements: \"username\" is not allowed to be empty`;
+      const messageExpected = `Attention! Provided details doesn't meet the requirements: \"username\" is not allowed to be empty`;
       const newUserData = {
         username: "",
         password: "12345678",

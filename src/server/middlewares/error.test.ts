@@ -1,4 +1,5 @@
 import type { Response } from "express";
+import { ValidationError } from "express-validation";
 import CustomError from "../../CustomError/CustomError";
 import { generalError, notFoundError } from "./errors";
 
@@ -39,6 +40,39 @@ describe("Given the generalError middleware", () => {
       expect(res.status).toHaveBeenCalledWith(statusCode);
       expect(res.json).toHaveBeenCalledWith({
         error: expectedDefaultPublicMessage,
+      });
+    });
+  });
+
+  describe("When it is invoked with ValidationError", () => {
+    test("Then it should call response method json with 'The details you provided don't meet the requirements: Username already exists'", () => {
+      class ValidationErrorCustom extends ValidationError {
+        code: string;
+
+        constructor(
+          public statusCode: number,
+          public privateMessage: string,
+          public publicMessage: string
+        ) {
+          super({ body: [] }, {});
+        }
+      }
+      const error = new ValidationErrorCustom(400, "", "");
+      error.details.body[0] = {
+        message: "Username already exists",
+        name: "ValidationError",
+        isJoi: true,
+        details: [],
+        annotate: jest.fn(),
+        _original: "",
+      };
+      const expectedPublicMessage =
+        "Atention! Provided details doesn't meet requirements: Username already exists";
+
+      generalError(error, null, res as Response, null);
+
+      expect(res.json).toHaveBeenCalledWith({
+        error: expectedPublicMessage,
       });
     });
   });

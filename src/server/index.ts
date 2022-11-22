@@ -2,7 +2,7 @@ import chalk from "chalk";
 import debugCreator from "debug";
 import type { Express } from "express";
 
-const debug = debugCreator("jocs:server");
+const debug = debugCreator("jugaires:server");
 
 const startServer = async (app: Express, port: number) => {
   await new Promise((resolve, reject) => {

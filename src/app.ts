@@ -1,4 +1,3 @@
-import "./loadEnvirontment.js";
 import environtment from "./loadEnvirontment.js";
 import express from "express";
 import morgan from "morgan";

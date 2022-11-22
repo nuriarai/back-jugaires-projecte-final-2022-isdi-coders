@@ -1,4 +1,3 @@
-import "./loadEnvirontment.js";
 import environtment from "./loadEnvirontment.js";
 import debug from "debug";
 import app from "./app.js";

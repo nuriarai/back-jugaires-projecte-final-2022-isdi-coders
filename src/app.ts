@@ -3,6 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import { generalError, notFoundError } from "./server/middlewares/errors.js";
+import usersRouter from "./server/routers/usersRouters.js";
 
 const { corsAllowedOrigins } = environtment;
 
@@ -20,7 +21,7 @@ app.use(cors(options));
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/", (req, res) => res.send("Jugaires"));
+app.use("/users", usersRouter);
 
 app.use(notFoundError);
 app.use(generalError);

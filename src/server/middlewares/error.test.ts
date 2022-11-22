@@ -67,7 +67,7 @@ describe("Given the generalError middleware", () => {
         _original: "",
       };
       const expectedPublicMessage =
-        "Atention! Provided details doesn't meet requirements: Username already exists";
+        "Attention! Provided details doesn't meet the requirements: Username already exists";
 
       generalError(error, null, res as Response, null);
 

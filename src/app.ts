@@ -3,6 +3,7 @@ import environtment from "./loadEnvirontment.js";
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import { generalError, notFoundError } from "./server/middlewares/errors.js";
 
 const { corsAllowedOrigins } = environtment;
 
@@ -22,4 +23,6 @@ app.use(express.json());
 
 app.use("/", (req, res) => res.send("Jugaires"));
 
+app.use(notFoundError);
+app.use(generalError);
 export default app;

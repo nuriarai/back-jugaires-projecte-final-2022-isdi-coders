@@ -10,5 +10,6 @@ module.exports = {
     "!src/app.ts",
     "!src/database/index.ts",
     "!src/server/index.ts",
+    "!src/loadEnvirontment.ts",
   ],
 };

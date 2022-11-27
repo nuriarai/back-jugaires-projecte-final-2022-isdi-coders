@@ -18,7 +18,6 @@ const userSchema = new Schema({
   },
 });
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const User = model("User", userSchema, "users");
 
 export default User;

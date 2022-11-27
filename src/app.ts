@@ -2,7 +2,10 @@ import environtment from "./loadEnvirontment.js";
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import { generalError, notFoundError } from "./server/middlewares/errors.js";
+import {
+  generalError,
+  notFoundError,
+} from "./server/middlewares/errors/errors.js";
 import usersRouter from "./server/routers/usersRouters.js";
 
 const { corsAllowedOrigins } = environtment;

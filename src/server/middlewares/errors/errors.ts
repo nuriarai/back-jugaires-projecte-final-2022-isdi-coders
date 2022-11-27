@@ -2,7 +2,7 @@ import chalk from "chalk";
 import debugCreator from "debug";
 import type { Request, Response, NextFunction } from "express";
 import { ValidationError } from "express-validation";
-import CustomError from "../../CustomError/CustomError.js";
+import CustomError from "../../../CustomError/CustomError.js";
 
 const debug = debugCreator("social:server:middlewares:errors");
 

@@ -1,6 +1,6 @@
 import type { Response } from "express";
 import { ValidationError } from "express-validation";
-import CustomError from "../../CustomError/CustomError";
+import CustomError from "../../../CustomError/CustomError";
 import { generalError, notFoundError } from "./errors";
 
 beforeEach(() => {

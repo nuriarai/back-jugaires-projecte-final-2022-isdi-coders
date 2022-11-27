@@ -1,7 +1,7 @@
 import type { Response } from "express";
 import { ValidationError } from "express-validation";
-import CustomError from "../../CustomError/CustomError";
-import { generalError, notFoundError } from "./errors/errors";
+import CustomError from "../../../CustomError/CustomError";
+import { generalError, notFoundError } from "./errors";
 
 beforeEach(() => {
   jest.clearAllMocks();

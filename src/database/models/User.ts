@@ -16,12 +16,6 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
-  picture: {
-    type: String,
-  },
-  image: {
-    type: String,
-  },
 });
 
 const User = model("User", userSchema, "users");

@@ -13,7 +13,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n\"username\": \"mariana\",\n\"password\": \"4567\",\n\"email\": \"mariana@mariana.com\"\n}",
+          "raw": "{\n\"username\": \"xxxx\",\n\"password\": \"45ssss67\",\n\"email\": \"ssss@mariana.com\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -21,8 +21,8 @@
           }
         },
         "url": {
-          "raw": "{{local}}users/register",
-          "host": ["{{local}}users"],
+          "raw": "{{domain}}users/register",
+          "host": ["{{domain}}users"],
           "path": ["register"]
         }
       },
@@ -43,8 +43,8 @@
           }
         },
         "url": {
-          "raw": "{{local}}users/register",
-          "host": ["{{local}}users"],
+          "raw": "{{domain}}users/register",
+          "host": ["{{domain}}users"],
           "path": ["register"]
         }
       },
@@ -65,8 +65,8 @@
           }
         },
         "url": {
-          "raw": "{{local}}users/register",
-          "host": ["{{local}}users"],
+          "raw": "{{domain}}users/register",
+          "host": ["{{domain}}users"],
           "path": ["register"]
         }
       },
@@ -87,9 +87,88 @@
           }
         },
         "url": {
-          "raw": "{{local}}users/register",
-          "host": ["{{local}}users"],
+          "raw": "{{domain}}users/register",
+          "host": ["{{domain}}users"],
           "path": ["register"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LOGIN",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\"username\": \"maria\",\n\"password\": \"1234\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{domain}}users/login",
+          "host": ["{{domain}}users"],
+          "path": ["login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LOGIN (no existeix)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\"username\": \"pepitoperez\",\n\"password\": \"iosdfupisd\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{domain}}users/login",
+          "host": ["{{domain}}users"],
+          "path": ["login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LOGIN (psw incorrecte)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\"username\": \"maria\",\n\"password\": \"1234sfdgsdfg\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{domain}}users/login",
+          "host": ["{{domain}}users"],
+          "path": ["login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LOAD GAMES",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{domain}}games/partides",
+          "host": ["{{domain}}games"],
+          "path": ["partides"]
         }
       },
       "response": []
@@ -113,8 +192,14 @@
   ],
   "variable": [
     {
-      "key": "local",
+      "key": "domain66",
       "value": "http://localhost:4000/",
+      "type": "string",
+      "disabled": true
+    },
+    {
+      "key": "domain",
+      "value": "https://nuria-ramoneda-back-final-project-202209.onrender.com/",
       "type": "string"
     }
   ]

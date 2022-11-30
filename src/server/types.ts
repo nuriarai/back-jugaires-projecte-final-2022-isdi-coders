@@ -1,6 +1,6 @@
 import type { InferSchemaType } from "mongoose";
 import type mongoose from "mongoose";
-import type { gameSchema } from "../database/models/Game.js";
+import type { gameSchema } from "../database/models/Game";
 
 export interface Credentials {
   username: string;

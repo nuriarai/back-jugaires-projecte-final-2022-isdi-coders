@@ -7,6 +7,7 @@ import {
   notFoundError,
 } from "./server/middlewares/errors/errors.js";
 import usersRouter from "./server/routers/usersRouters.js";
+import gamesRouter from "./server/routers/gamesRouters/gamesRouters.js";
 
 const { corsAllowedOrigins } = environtment;
 
@@ -25,6 +26,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 app.use("/users", usersRouter);
+app.use("/games", gamesRouter);
 
 app.use(notFoundError);
 app.use(generalError);

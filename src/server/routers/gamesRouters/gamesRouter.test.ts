@@ -8,14 +8,16 @@ import { getRandomGamesList } from "../../../factories/gamesFactory";
 import type { GameStructure } from "../../types";
 
 let server: MongoMemoryServer;
+let gameTest: GameStructure;
 
 const gamesList: GameStructure[] = getRandomGamesList(4);
+const mockOneGame = gamesList[0];
 
 beforeAll(async () => {
   server = await MongoMemoryServer.create();
   await connectDb(server.getUri());
 
-  await Game.create(gamesList);
+  gameTest = await Game.create(mockOneGame);
 });
 
 afterAll(async () => {
@@ -38,6 +40,23 @@ describe("Given a GET games endpoint", () => {
         .expect(statusExpected);
 
       expect(response.body).toHaveProperty("games");
+    });
+  });
+});
+
+describe("Given a DELETE games endpoint", () => {
+  describe("When it receives a request ", () => {
+    test("Then it should respond with a 200 status and a deleted game message", async () => {
+      const statusExpected = 200;
+
+      const { id } = gameTest;
+
+      console.log(id);
+      const response = await request(app)
+        .delete(`/games/delete/${id.toString()}`)
+        .expect(statusExpected);
+
+      expect(response.body).toStrictEqual("Game deleted");
     });
   });
 });

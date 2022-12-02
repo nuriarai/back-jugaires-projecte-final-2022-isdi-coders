@@ -12,5 +12,5 @@ export interface RegisterDataCredentials extends Credentials {
 }
 
 export interface GameStructure extends InferSchemaType<typeof gameSchema> {
-  id: mongoose.Types.ObjectId;
+  id?: mongoose.Types.ObjectId;
 }

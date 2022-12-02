@@ -29,3 +29,30 @@ export const loadGames = async (
     next(customError);
   }
 };
+
+export const deleteGame = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  try {
+    const game = await Game.findById(id);
+    if (!game) {
+      res.status(404).json({ message: "Game not found" });
+      return;
+    }
+
+    await Game.findByIdAndDelete(id);
+
+    res.status(200).json("Game deleted");
+  } catch (error: unknown) {
+    const customError = new CustomError(
+      (error as Error).message,
+      500,
+      "Databaser error"
+    );
+
+    next(customError);
+  }
+};

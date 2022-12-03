@@ -71,8 +71,8 @@ describe("Given a CREATE game endpoint", () => {
         .post("/games/create")
         .send(requestBody)
         .expect(statusExpected);
-
-      expect(response.body).toHaveProperty("owner");
+      console.log(response.body);
+      expect(response.body).toHaveProperty("newGame.gameBoard");
     });
   });
 });

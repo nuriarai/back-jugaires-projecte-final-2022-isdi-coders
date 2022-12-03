@@ -1,312 +1,263 @@
 {
-	"info": {
-		"_postman_id": "ce1ddfb6-0561-4ea6-a5e5-98347a5afabe",
-		"name": "Jugaires",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23879630"
-	},
-	"item": [
-		{
-			"name": "REGISTRE (posar dades noves)",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\"username\": \"xxxx\",\n\"password\": \"45ssss67\",\n\"email\": \"ssss@mariana.com\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{domain}}users/register",
-					"host": [
-						"{{domain}}users"
-					],
-					"path": [
-						"register"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "REGISTRE SENSE DADES",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\"username\": \"\",\n\"password\": \"\",\n\"email\": \"\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{domain}}users/register",
-					"host": [
-						"{{domain}}users"
-					],
-					"path": [
-						"register"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "REGISTRE DADES DUPLICADES",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\"username\": \"maria\",\n\"password\": \"1234\",\n\"email\": \"maria@maria.com\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{domain}}users/register",
-					"host": [
-						"{{domain}}users"
-					],
-					"path": [
-						"register"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "REGISTRE PSW INCORRECTE",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\"username\": \"joanax\",\n\"password\": \"122\",\n\"email\": \"joanax@joana.com\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{domain}}users/register",
-					"host": [
-						"{{domain}}users"
-					],
-					"path": [
-						"register"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "LOGIN",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\"username\": \"maria\",\n\"password\": \"1234\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{domain}}users/login",
-					"host": [
-						"{{domain}}users"
-					],
-					"path": [
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "LOGIN (no existeix)",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\"username\": \"pepitoperez\",\n\"password\": \"iosdfupisd\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{domain}}users/login",
-					"host": [
-						"{{domain}}users"
-					],
-					"path": [
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "LOGIN (psw incorrecte)",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\"username\": \"maria\",\n\"password\": \"1234sfdgsdfg\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{domain}}users/login",
-					"host": [
-						"{{domain}}users"
-					],
-					"path": [
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "LOAD GAMES",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{domain}}games/games",
-					"host": [
-						"{{domain}}games"
-					],
-					"path": [
-						"games"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{domain}}games/delete/638a12dda4f1a16ff996b4d9",
-					"host": [
-						"{{domain}}games"
-					],
-					"path": [
-						"delete",
-						"638a12dda4f1a16ff996b4d9"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "CREATE",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n      \"owner\": \"637d14f8ebf9a87c51fcb77f\",\n  \"gameBoard\": \"Canasteta\",\n  \"dateTime\": \"20220420\",\n  \"picture\": \"https://s1.eestatic.com/2021/09/04/ocio/609450308_205727591_1706x960.jpg\",\n  \"pictureBackup\": \"url2\",\n  \"location\": \"Bar Pepe\",\n  \"addressLocation\": \"Via Júlia, 132\",\n  \"minPlayers\": 2,\n  \"maxPlayers\": 8,\n  \"duration\": \"Entre 2 i 4 hores\",\n  \"observations\": \"Cal portar cartes franceses\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{domain}}games/create",
-					"host": [
-						"{{domain}}games"
-					],
-					"path": [
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "CREATE (sense dades)",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{domain}}games/create",
-					"host": [
-						"{{domain}}games"
-					],
-					"path": [
-						"create"
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "domain55",
-			"value": "http://localhost:4000/",
-			"type": "string",
-			"disabled": true
-		},
-		{
-			"key": "domain",
-			"value": "https://nuria-ramoneda-back-final-project-202209.onrender.com/",
-			"type": "string"
-		}
-	]
+  "info": {
+    "_postman_id": "ce1ddfb6-0561-4ea6-a5e5-98347a5afabe",
+    "name": "Jugaires",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "23879630"
+  },
+  "item": [
+    {
+      "name": "REGISTRE (posar dades noves)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\"username\": \"xxxx\",\n\"password\": \"45ssss67\",\n\"email\": \"ssss@mariana.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{domain}}users/register",
+          "host": ["{{domain}}users"],
+          "path": ["register"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "REGISTRE SENSE DADES",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\"username\": \"\",\n\"password\": \"\",\n\"email\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{domain}}users/register",
+          "host": ["{{domain}}users"],
+          "path": ["register"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "REGISTRE DADES DUPLICADES",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\"username\": \"maria\",\n\"password\": \"1234\",\n\"email\": \"maria@maria.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{domain}}users/register",
+          "host": ["{{domain}}users"],
+          "path": ["register"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "REGISTRE PSW INCORRECTE",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\"username\": \"joanax\",\n\"password\": \"122\",\n\"email\": \"joanax@joana.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{domain}}users/register",
+          "host": ["{{domain}}users"],
+          "path": ["register"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LOGIN",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\"username\": \"maria\",\n\"password\": \"1234\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{domain}}users/login",
+          "host": ["{{domain}}users"],
+          "path": ["login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LOGIN (no existeix)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\"username\": \"pepitoperez\",\n\"password\": \"iosdfupisd\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{domain}}users/login",
+          "host": ["{{domain}}users"],
+          "path": ["login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LOGIN (psw incorrecte)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\"username\": \"maria\",\n\"password\": \"1234sfdgsdfg\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{domain}}users/login",
+          "host": ["{{domain}}users"],
+          "path": ["login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LOAD GAMES",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{domain}}games/games",
+          "host": ["{{domain}}games"],
+          "path": ["games"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{domain}}games/delete/638a12dda4f1a16ff996b4d9",
+          "host": ["{{domain}}games"],
+          "path": ["delete", "638a12dda4f1a16ff996b4d9"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CREATE",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n      \"owner\": \"637d14f8ebf9a87c51fcb77f\",\n  \"gameBoard\": \"Canasteta\",\n  \"dateTime\": \"20220420\",\n  \"picture\": \"https://s1.eestatic.com/2021/09/04/ocio/609450308_205727591_1706x960.jpg\",\n  \"pictureBackup\": \"url2\",\n  \"location\": \"Bar Pepe\",\n  \"addressLocation\": \"Via Júlia, 132\",\n  \"minPlayers\": 2,\n  \"maxPlayers\": 8,\n  \"duration\": \"Entre 2 i 4 hores\",\n  \"observations\": \"Cal portar cartes franceses\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{domain}}games/create",
+          "host": ["{{domain}}games"],
+          "path": ["create"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CREATE (sense dades)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{domain}}games/create",
+          "host": ["{{domain}}games"],
+          "path": ["create"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "domain55",
+      "value": "http://localhost:4000/",
+      "type": "string",
+      "disabled": true
+    },
+    {
+      "key": "domain",
+      "value": "https://nuria-ramoneda-back-final-project-202209.onrender.com/",
+      "type": "string"
+    }
+  ]
 }

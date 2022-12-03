@@ -12,6 +12,7 @@ let gameTest: GameStructure;
 
 const gamesList: GameStructure[] = getRandomGamesList(4);
 const mockOneGame = gamesList[0];
+const newGame = gamesList[2];
 
 beforeAll(async () => {
   server = await MongoMemoryServer.create();
@@ -51,12 +52,27 @@ describe("Given a DELETE games endpoint", () => {
 
       const { id } = gameTest;
 
-      console.log(id);
       const response = await request(app)
         .delete(`/games/delete/${id.toString()}`)
         .expect(statusExpected);
 
       expect(response.body).toStrictEqual("Game deleted");
+    });
+  });
+});
+
+describe("Given a CREATE game endpoint", () => {
+  describe("When it receives a request with a new game in body", () => {
+    test("Then it should respond with a 201 status", async () => {
+      const statusExpected = 201;
+      const requestBody = newGame;
+
+      const response = await request(app)
+        .post("/games/create")
+        .send(requestBody)
+        .expect(statusExpected);
+
+      expect(response.body).toHaveProperty("owner");
     });
   });
 });

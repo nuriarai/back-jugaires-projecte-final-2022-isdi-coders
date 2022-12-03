@@ -20,3 +20,6 @@ const gamesFactory = Factory.define<GameStructure>(() => ({
 
 export const getRandomGamesList = (number: number) =>
   gamesFactory.buildList(number);
+
+const gamesOneList: GameStructure[] = getRandomGamesList(4);
+export const mockOnlyOneGame = gamesOneList[1];

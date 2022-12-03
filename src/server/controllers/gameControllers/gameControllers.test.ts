@@ -3,7 +3,7 @@ import CustomError from "../../../CustomError/CustomError";
 import Game from "../../../database/models/Game";
 import { getRandomGamesList } from "../../../factories/gamesFactory";
 import type { GameStructure } from "../../types";
-import { deleteGame, loadGames } from "./gameControllers";
+import { addGame, deleteGame, loadGames } from "./gameControllers";
 
 beforeEach(() => jest.clearAllMocks());
 
@@ -75,17 +75,17 @@ describe("Given a delete game controller", () => {
 
   describe("When it receives a request with an non-existing id in database", () => {
     test("Then it should return a response with a status code of 404", async () => {
-      /*  Const expectedStatusCode = 404; */
+      const expectedStatusCode = 404;
 
       const req: Partial<Request> = {
         params: { id: "3455" },
       };
 
-      Game.findById = jest.fn().mockRejectedValue(mockOneGame);
-      Game.findByIdAndDelete = jest.fn();
+      Game.findById = jest.fn().mockResolvedValue(undefined);
+
       await deleteGame(req as Request, res as Response, next as NextFunction);
 
-      /*  Expect(res.status).toHaveBeenCalledWith(expectedStatusCode); */
+      expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
     });
   });
 
@@ -95,8 +95,46 @@ describe("Given a delete game controller", () => {
       const req: Partial<Request> = {
         params: { id: "3455" },
       };
+
       Game.findById = jest.fn().mockRejectedValue(expectedError);
+
       await deleteGame(req as Request, res as Response, next);
+
+      expect(next).toHaveBeenCalledWith(expectedError);
+    });
+  });
+});
+
+describe("Given an addGame controller", () => {
+  describe("When it receives a request with new data for a new game to create", () => {
+    test("Then it should call status method with a 201 status code", async () => {
+      const expectedStatusCode = 201;
+
+      const req: Partial<Request> = {
+        body: [],
+      };
+
+      req.body = mockOneGame;
+
+      Game.create = jest.fn().mockReturnValueOnce(mockOneGame);
+
+      await addGame(req as Request, res as Response, next as NextFunction);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
+    });
+  });
+
+  describe("When it receives a request with no data for a new game to create", () => {
+    test("Then it should call status method with a 500 status code", async () => {
+      const expectedError = new Error();
+
+      const req: Partial<Request> = {
+        body: [],
+      };
+
+      Game.create = jest.fn().mockRejectedValue(expectedError);
+
+      await addGame(req as Request, res as Response, next as NextFunction);
 
       expect(next).toHaveBeenCalledWith(expectedError);
     });

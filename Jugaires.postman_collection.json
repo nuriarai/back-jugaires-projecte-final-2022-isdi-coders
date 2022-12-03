@@ -166,9 +166,66 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{domain}}games/partides",
+          "raw": "{{domain}}games/games",
           "host": ["{{domain}}games"],
-          "path": ["partides"]
+          "path": ["games"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{domain}}games/delete/638a12dda4f1a16ff996b4d9",
+          "host": ["{{domain}}games"],
+          "path": ["delete", "638a12dda4f1a16ff996b4d9"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CREATE",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n      \"owner\": \"637d14f8ebf9a87c51fcb77f\",\n  \"gameBoard\": \"Canasteta\",\n  \"dateTime\": \"20220420\",\n  \"picture\": \"https://s1.eestatic.com/2021/09/04/ocio/609450308_205727591_1706x960.jpg\",\n  \"pictureBackup\": \"url2\",\n  \"location\": \"Bar Pepe\",\n  \"addressLocation\": \"Via Júlia, 132\",\n  \"minPlayers\": 2,\n  \"maxPlayers\": 8,\n  \"duration\": \"Entre 2 i 4 hores\",\n  \"observations\": \"Cal portar cartes franceses\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{domain}}games/create",
+          "host": ["{{domain}}games"],
+          "path": ["create"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CREATE (sense dades)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{domain}}games/create",
+          "host": ["{{domain}}games"],
+          "path": ["create"]
         }
       },
       "response": []
@@ -192,7 +249,7 @@
   ],
   "variable": [
     {
-      "key": "domain66",
+      "key": "domain55",
       "value": "http://localhost:4000/",
       "type": "string",
       "disabled": true

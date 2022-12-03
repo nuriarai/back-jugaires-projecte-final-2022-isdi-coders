@@ -72,7 +72,7 @@ describe("Given a CREATE game endpoint", () => {
         .send(requestBody)
         .expect(statusExpected);
 
-      expect(response.body).toHaveProperty("owner");
+      expect(response.body).toHaveProperty("newGame.gameBoard");
     });
   });
 });

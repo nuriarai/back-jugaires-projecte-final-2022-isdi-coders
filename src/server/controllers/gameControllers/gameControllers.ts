@@ -66,7 +66,7 @@ export const addGame = async (
   try {
     const newGame = await Game.create(req.body);
 
-    res.status(201).json(newGame);
+    res.status(201).json({ newGame });
   } catch (error: unknown) {
     const customError = new CustomError(
       (error as Error).message,

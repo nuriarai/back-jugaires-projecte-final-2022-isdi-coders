@@ -38,6 +38,7 @@ export const deleteGame = async (
   const { id } = req.params;
   try {
     const game = await Game.findById(id);
+
     if (!game) {
       res.status(404).json({ message: "Game not found" });
       return;
@@ -53,6 +54,25 @@ export const deleteGame = async (
       "Databaser error"
     );
 
+    next(customError);
+  }
+};
+
+export const addGame = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const newGame = await Game.create(req.body);
+
+    res.status(201).json(newGame);
+  } catch (error: unknown) {
+    const customError = new CustomError(
+      (error as Error).message,
+      500,
+      "Database error"
+    );
     next(customError);
   }
 };

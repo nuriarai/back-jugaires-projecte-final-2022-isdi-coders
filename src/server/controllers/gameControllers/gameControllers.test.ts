@@ -2,8 +2,8 @@ import type { NextFunction, Request, Response } from "express";
 import CustomError from "../../../CustomError/CustomError";
 import Game from "../../../database/models/Game";
 import { getRandomGamesList } from "../../../factories/gamesFactory";
-import type { GameStructure } from "../../types";
-import { addGame, deleteGame, loadGames } from "./gameControllers";
+import type { CustomRequest, GameStructure } from "../../types";
+import { addGame, deleteGame, getGameById, loadGames } from "./gameControllers";
 
 beforeEach(() => jest.clearAllMocks());
 
@@ -135,6 +135,67 @@ describe("Given an addGame controller", () => {
       Game.create = jest.fn().mockRejectedValue(expectedError);
 
       await addGame(req as Request, res as Response, next as NextFunction);
+
+      expect(next).toHaveBeenCalledWith(expectedError);
+    });
+  });
+});
+
+describe("Given a getGameById game controller", () => {
+  describe("When it receives a request with an existing id in database", () => {
+    test("Then it should return a response with a status code of 200", async () => {
+      const expectedStatusCode = 200;
+
+      const req: Partial<Request> = {
+        params: { id: mockOneGame.id.toString() },
+      };
+
+      Game.findById = jest.fn().mockResolvedValueOnce(mockOneGame);
+      await getGameById(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
+      expect(res.json).toHaveBeenCalledWith({ gameById: mockOneGame });
+    });
+  });
+
+  describe("When it receives a request with a non-existing id in database", () => {
+    test("Then it should return a response with a status code of 404", async () => {
+      const expectedStatusCode = 404;
+
+      const req: Partial<Request> = {
+        params: { id: "3455" },
+      };
+
+      Game.findById = jest.fn().mockResolvedValue(undefined);
+
+      await getGameById(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
+    });
+  });
+
+  describe("When it receives an error ", () => {
+    test("Then it should call next function with custom error", async () => {
+      const expectedError = new Error();
+      const req: Partial<Request> = {
+        params: { id: "3455" },
+      };
+
+      Game.findById = jest.fn().mockRejectedValue(expectedError);
+
+      await getGameById(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
 
       expect(next).toHaveBeenCalledWith(expectedError);
     });

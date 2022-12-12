@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import Game from "../../../database/models/Game.js";
 import CustomError from "../../../CustomError/CustomError.js";
+import type { CustomRequest } from "../../types.js";
 
 export const loadGames = async (
   req: Request,
@@ -73,6 +74,33 @@ export const addGame = async (
       500,
       "Database error"
     );
+    next(customError);
+  }
+};
+
+export const getGameById = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+
+  try {
+    const gameById = await Game.findById(id);
+
+    if (!gameById) {
+      res.status(404).json({ message: "Game not found" });
+      return;
+    }
+
+    res.status(200).json({ gameById });
+  } catch (error: unknown) {
+    const customError = new CustomError(
+      (error as Error).message,
+      500,
+      "Database error: game not found"
+    );
+
     next(customError);
   }
 };

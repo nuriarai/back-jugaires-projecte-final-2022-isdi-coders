@@ -17,8 +17,6 @@ const newGame = gamesList[2];
 beforeAll(async () => {
   server = await MongoMemoryServer.create();
   await connectDb(server.getUri());
-
-  gameTest = await Game.create(mockOneGame);
 });
 
 afterAll(async () => {
@@ -29,6 +27,7 @@ afterAll(async () => {
 
 beforeEach(async () => {
   jest.resetAllMocks();
+  gameTest = await Game.create(mockOneGame);
 });
 
 describe("Given a GET games endpoint", () => {
@@ -73,6 +72,36 @@ describe("Given a CREATE game endpoint", () => {
         .expect(statusExpected);
 
       expect(response.body).toHaveProperty("newGame.gameBoard");
+    });
+  });
+});
+
+describe("Given a GETBYID game endpoint", () => {
+  describe("When it receives a request with a correct id ", () => {
+    test("Then it should respond with a 200 status and the property gameBoard  in the body", async () => {
+      const statusExpected = 200;
+
+      const { id } = gameTest;
+
+      const response = await request(app)
+        .get(`/games/game/${id.toString()}`)
+        .expect(statusExpected);
+
+      expect(response.body).toHaveProperty("gameById.gameBoard");
+    });
+  });
+
+  describe("When it receives a request with a inexistent id ", () => {
+    test("Then it should respond with a 404 status", async () => {
+      const statusExpected = 404;
+
+      const { id } = gamesList[1];
+
+      const response = await request(app)
+        .get(`/games/game/${id.toString()}`)
+        .expect(statusExpected);
+
+      expect(response.body).toHaveProperty("message", "Game not found");
     });
   });
 });

@@ -87,7 +87,7 @@ describe("Given a GETBYID game endpoint", () => {
         .get(`/games/game/${id.toString()}`)
         .expect(statusExpected);
 
-      expect(response.body).toHaveProperty("gameById.gameBoard");
+      expect(response.body).toHaveProperty("game.gameBoard");
     });
   });
 

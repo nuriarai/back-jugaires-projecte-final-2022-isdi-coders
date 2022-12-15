@@ -86,14 +86,14 @@ export const getGameById = async (
   const { id } = req.params;
 
   try {
-    const gameById = await Game.findById(id);
+    const game = await Game.findById(id);
 
-    if (!gameById) {
+    if (!game) {
       res.status(404).json({ message: "Game not found" });
       return;
     }
 
-    res.status(200).json({ gameById });
+    res.status(200).json({ game });
   } catch (error: unknown) {
     const customError = new CustomError(
       (error as Error).message,

@@ -158,7 +158,7 @@ describe("Given a getGameById game controller", () => {
       );
 
       expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
-      expect(res.json).toHaveBeenCalledWith({ gameById: mockOneGame });
+      expect(res.json).toHaveBeenCalledWith({ game: mockOneGame });
     });
   });
 

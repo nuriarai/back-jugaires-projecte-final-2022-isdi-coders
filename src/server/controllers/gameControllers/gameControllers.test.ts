@@ -11,6 +11,12 @@ const res: Partial<Response> = {
   status: jest.fn().mockReturnThis(),
   json: jest.fn().mockReturnThis(),
 };
+
+const req: Partial<Request> = {
+  params: {},
+  query: { pagina: "0" },
+};
+
 const next = jest.fn();
 
 const gamesList: GameStructure[] = getRandomGamesList(4);
@@ -22,8 +28,17 @@ describe("Given a loadGames controller", () => {
     test("Then it should call its method status with a 200 code", async () => {
       const statusCode = 200;
 
-      Game.find = jest.fn().mockReturnValueOnce(gamesList);
-      await loadGames(null, res as Response, next);
+      Game.find = jest.fn().mockReturnValueOnce({
+        sort: jest.fn().mockReturnValue({
+          skip: jest.fn().mockReturnValue({
+            limit: jest.fn().mockReturnValue({
+              exec: jest.fn().mockReturnValue(gamesList),
+            }),
+          }),
+        }),
+      });
+
+      await loadGames(req as Request, res as Response, next);
 
       expect(res.status).toHaveBeenCalledWith(statusCode);
     });
@@ -34,11 +49,20 @@ describe("Given a loadGames controller", () => {
       const expectedError = new CustomError(
         "No games in database",
         500,
-        "No games found"
+        "Encara no hi ha partides"
       );
 
-      Game.find = jest.fn().mockReturnValue([]);
-      await loadGames(null, res as Response, next);
+      Game.find = jest.fn().mockReturnValueOnce({
+        sort: jest.fn().mockReturnValue({
+          skip: jest.fn().mockReturnValue({
+            limit: jest.fn().mockReturnValue({
+              exec: jest.fn().mockReturnValue([]),
+            }),
+          }),
+        }),
+      });
+
+      await loadGames(req as Request, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(expectedError);
     });
@@ -48,10 +72,58 @@ describe("Given a loadGames controller", () => {
     test("Then it should call next function with custom error", async () => {
       const expectedError = new Error();
 
-      Game.find = jest.fn().mockRejectedValue(expectedError);
-      await loadGames(null, res as Response, next);
+      Game.find = jest.fn().mockReturnValueOnce({
+        sort: jest.fn().mockReturnValue({
+          skip: jest.fn().mockReturnValue({
+            limit: jest.fn().mockReturnValue({
+              exec: jest.fn().mockRejectedValue(expectedError),
+            }),
+          }),
+        }),
+      });
+
+      await loadGames(req as Request, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(expectedError);
+    });
+  });
+
+  describe("When it receives a request with a filter gameBoard in its query params", () => {
+    test("Then it should call its method status with a 200 code", async () => {
+      const gamesListLong: GameStructure[] = getRandomGamesList(30);
+
+      const mockOneGameLong = gamesListLong[0];
+
+      const req: Partial<Request> = {
+        params: {},
+        query: { pagina: "0", gameBoard: mockOneGameLong.gameBoard },
+      };
+
+      const statusCode = 200;
+
+      /*    Const expectedGames: GameStructure = {
+        gameBoard: mockOneGameLong.gameBoard,
+      }; */
+
+      Game.find = jest.fn().mockReturnValue({
+        sort: jest.fn().mockReturnValue({
+          skip: jest.fn().mockReturnValue({
+            limit: jest.fn().mockReturnValue({
+              exec: jest.fn().mockReturnValue(gamesListLong),
+            }),
+          }),
+        }),
+      });
+
+      await loadGames(req as Request, res as Response, next);
+
+      expect(res.status).toHaveBeenCalledWith(statusCode);
+      /*   Expect(res.json).toBeCalledWith({
+        isNextPage: false,
+        isPreviousPage: false,
+        games: expectedGames,
+        totalPages: 1,
+      }); */
     });
   });
 });

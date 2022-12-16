@@ -9,18 +9,50 @@ export const loadGames = async (
   next: NextFunction
 ) => {
   try {
-    const games = await Game.find();
+    let games = [];
+    let message = "";
+    let countGames = 0;
+
+    const pageOptions = {
+      pagina: +req.query.pagina || 0,
+      limit: 10,
+      gameBoard: req.query.gameBoard as string,
+    };
+
+    if (pageOptions.gameBoard) {
+      games = await Game.find({
+        gameBoard: { $regex: pageOptions.gameBoard, $options: "i" },
+      })
+        .sort({ dateTime: -1 })
+        .skip(pageOptions.pagina * pageOptions.limit)
+        .limit(pageOptions.limit)
+        .exec();
+
+      countGames = games.length;
+      message = "No s'han trobat partides per a aquest joc";
+    } else {
+      games = await Game.find()
+        .sort({ dateTime: -1 })
+        .skip(pageOptions.pagina * pageOptions.limit)
+        .limit(pageOptions.limit)
+        .exec();
+
+      countGames = games.length;
+      message = "Encara no hi ha partides";
+    }
 
     if (games.length === 0) {
-      const customError = new CustomError(
-        "No games in database",
-        500,
-        "No games in database"
-      );
+      const customError = new CustomError("No games in database", 500, message);
       next(customError);
     }
 
-    res.status(200).json({ games });
+    const checkPages = {
+      isPreviousPage: pageOptions.pagina !== 0,
+      isNextPage: countGames >= pageOptions.limit * (pageOptions.pagina + 1),
+      totalPages: Math.ceil(countGames / pageOptions.limit),
+    };
+
+    res.status(200).json({ ...checkPages, games });
   } catch (error: unknown) {
     const customError = new CustomError(
       (error as Error).message,

@@ -11,20 +11,28 @@ export const loadGames = async (
   try {
     let games = [];
     let message = "";
-    let countGames = 0;
+    let countGames;
 
     const pageOptions = {
-      pagina: +req.query.pagina || 0,
-      limit: 10,
+      page: +req.query.page || 0,
+      limit: 5,
       gameBoard: req.query.gameBoard as string,
     };
+
+    if (pageOptions.gameBoard) {
+      countGames = await Game.countDocuments({
+        gameBoard: pageOptions.gameBoard,
+      });
+    } else {
+      countGames = await Game.countDocuments();
+    }
 
     if (pageOptions.gameBoard) {
       games = await Game.find({
         gameBoard: { $regex: pageOptions.gameBoard, $options: "i" },
       })
         .sort({ dateTime: -1 })
-        .skip(pageOptions.pagina * pageOptions.limit)
+        .skip(pageOptions.page * pageOptions.limit)
         .limit(pageOptions.limit)
         .exec();
 
@@ -33,7 +41,7 @@ export const loadGames = async (
     } else {
       games = await Game.find()
         .sort({ dateTime: -1 })
-        .skip(pageOptions.pagina * pageOptions.limit)
+        .skip(pageOptions.page * pageOptions.limit)
         .limit(pageOptions.limit)
         .exec();
 
@@ -47,8 +55,8 @@ export const loadGames = async (
     }
 
     const checkPages = {
-      isPreviousPage: pageOptions.pagina !== 0,
-      isNextPage: countGames >= pageOptions.limit * (pageOptions.pagina + 1),
+      isPreviousPage: pageOptions.page !== 0,
+      isNextPage: countGames >= pageOptions.limit * (pageOptions.page + 1),
       totalPages: Math.ceil(countGames / pageOptions.limit),
     };
 

@@ -5,7 +5,9 @@ import { getRandomGamesList } from "../../../factories/gamesFactory";
 import type { CustomRequest, GameStructure } from "../../types";
 import { addGame, deleteGame, getGameById, loadGames } from "./gameControllers";
 
-beforeEach(() => jest.clearAllMocks());
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
 const res: Partial<Response> = {
   status: jest.fn().mockReturnThis(),
@@ -14,7 +16,7 @@ const res: Partial<Response> = {
 
 const req: Partial<Request> = {
   params: {},
-  query: { pagina: "0" },
+  query: { page: "0" },
 };
 
 const next = jest.fn();
@@ -28,7 +30,9 @@ describe("Given a loadGames controller", () => {
     test("Then it should call its method status with a 200 code", async () => {
       const statusCode = 200;
 
-      Game.find = jest.fn().mockReturnValueOnce({
+      Game.countDocuments = jest.fn();
+
+      Game.find = jest.fn().mockReturnValue({
         sort: jest.fn().mockReturnValue({
           skip: jest.fn().mockReturnValue({
             limit: jest.fn().mockReturnValue({
@@ -45,14 +49,16 @@ describe("Given a loadGames controller", () => {
   });
 
   describe("When it receives a request/response and there are no games in database", () => {
-    test("Then it should call next function with custom error and 'Nno games in database'", async () => {
+    test("Then it should call next function with custom error and 'No games in database'", async () => {
       const expectedError = new CustomError(
         "No games in database",
         500,
         "Encara no hi ha partides"
       );
 
-      Game.find = jest.fn().mockReturnValueOnce({
+      Game.countDocuments = jest.fn();
+
+      Game.find = jest.fn().mockReturnValue({
         sort: jest.fn().mockReturnValue({
           skip: jest.fn().mockReturnValue({
             limit: jest.fn().mockReturnValue({
@@ -96,14 +102,10 @@ describe("Given a loadGames controller", () => {
 
       const req: Partial<Request> = {
         params: {},
-        query: { pagina: "0", gameBoard: mockOneGameLong.gameBoard },
+        query: { page: "0", gameBoard: mockOneGameLong.gameBoard },
       };
 
       const statusCode = 200;
-
-      /*    Const expectedGames: GameStructure = {
-        gameBoard: mockOneGameLong.gameBoard,
-      }; */
 
       Game.find = jest.fn().mockReturnValue({
         sort: jest.fn().mockReturnValue({
@@ -118,12 +120,6 @@ describe("Given a loadGames controller", () => {
       await loadGames(req as Request, res as Response, next);
 
       expect(res.status).toHaveBeenCalledWith(statusCode);
-      /*   Expect(res.json).toBeCalledWith({
-        isNextPage: false,
-        isPreviousPage: false,
-        games: expectedGames,
-        totalPages: 1,
-      }); */
     });
   });
 });

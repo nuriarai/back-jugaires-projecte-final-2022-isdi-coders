@@ -27,6 +27,12 @@ export const loadGames = async (
       countGames = await Game.countDocuments();
     }
 
+    const checkPages = {
+      isPreviousPage: pageOptions.page !== 0,
+      isNextPage: countGames >= pageOptions.limit * (pageOptions.page + 1),
+      totalPages: Math.ceil(countGames / pageOptions.limit),
+    };
+
     if (pageOptions.gameBoard) {
       games = await Game.find({
         gameBoard: { $regex: pageOptions.gameBoard, $options: "i" },
@@ -53,12 +59,6 @@ export const loadGames = async (
       const customError = new CustomError("No games in database", 500, message);
       next(customError);
     }
-
-    const checkPages = {
-      isPreviousPage: pageOptions.page !== 0,
-      isNextPage: countGames >= pageOptions.limit * (pageOptions.page + 1),
-      totalPages: Math.ceil(countGames / pageOptions.limit),
-    };
 
     res.status(200).json({ ...checkPages, games });
   } catch (error: unknown) {

@@ -42,7 +42,6 @@ export const loadGames = async (
         .limit(pageOptions.limit)
         .exec();
 
-      countGames = games.length;
       message = "No s'han trobat partides per a aquest joc";
     } else {
       games = await Game.find()
@@ -51,7 +50,6 @@ export const loadGames = async (
         .limit(pageOptions.limit)
         .exec();
 
-      countGames = games.length;
       message = "Encara no hi ha partides";
     }
 
